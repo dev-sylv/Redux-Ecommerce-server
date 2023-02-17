@@ -68,3 +68,26 @@ router.post("/register", async (req: Request, res: Response) => {
 		});
 	}
 });
+
+router.post("/login", async (req: Request, res: Response) => {
+	try {
+		const { email } = req.body;
+
+		const checkUser = await UserModel.findOne({ email: email });
+
+		if (checkUser) {
+			return res.status(200).json({
+				message: "success",
+				data: checkUser,
+			});
+		} else {
+			return res.status(200).json({
+				message: "user not found",
+			});
+		}
+	} catch (err) {
+		res.status(404).json({
+			message: "an error occured",
+		});
+	}
+});

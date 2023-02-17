@@ -1,5 +1,5 @@
-import UserModel from "../Model/UserModel";
-import ProductsModel from "../Model/ProductsModel";
+import UserModel from "../Models/UserModel";
+import ProductsModel from "../Models/ProductsModels";
 import express, { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
@@ -117,3 +117,33 @@ router.post("/createProduct", async (req: Request, res: Response) => {
 		});
 	}
 });
+
+//puschasing product
+router.patch(
+	"/purchaseProduct/:productID",
+	async (req: Request, res: Response) => {
+		try {
+			const { qty } = req.body;
+
+			// const getUser = await UserModel.findById(req.params.userID);
+			const getProducts = await ProductsModel.findById(req.params.productID);
+			console.log(getProducts);
+
+			if (getProducts!.quantity == 0) {
+				await ProductsModel.findByIdAndUpdate(getProducts!._id!, {
+					status: false,
+				});
+			} else {
+				await ProductsModel.findByIdAndUpdate(getProducts!._id!, {
+					quantity: getProducts?.quantity! - qty,
+				});
+			}
+		} catch (err) {
+			res.status(404).json({
+				message: "an error occured",
+			});
+		}
+	},
+);
+
+export default router;

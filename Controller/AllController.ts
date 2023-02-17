@@ -91,3 +91,29 @@ router.post("/login", async (req: Request, res: Response) => {
 		});
 	}
 });
+
+// create produt
+
+router.post("/createProduct", async (req: Request, res: Response) => {
+	try {
+		const { title, desc, price, category, quantity, status } = req.body;
+
+		const creating = await ProductsModel.create({
+			title,
+			desc,
+			price,
+			category,
+			quantity,
+			status: true,
+		});
+
+		res.status(200).json({
+			message: "successfully created",
+			data: creating,
+		});
+	} catch (err) {
+		res.status(404).json({
+			message: "an error occured",
+		});
+	}
+});

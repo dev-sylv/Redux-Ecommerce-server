@@ -24,11 +24,12 @@ router.get("/users", async (req: Request, res: Response) => {
 // register a user
 router.post("/register", async (req: Request, res: Response) => {
 	try {
-		const { name, email, password } = req.body;
+		const { name, email, password, confirmPassword } = req.body;
 		const createUser = await UserModel.create({
 			name,
 			email,
 			password,
+			confirmPassword
 		});
 		return res.status(200).json({
 			message: "success",

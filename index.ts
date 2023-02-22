@@ -16,5 +16,5 @@ app.use("/api", AllRoute);
 
 app.listen(port, () => {
 	console.log("")
-	console.log("listening on port");
+	console.log("listening on port", port);
 });

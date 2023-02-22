@@ -4,6 +4,7 @@ interface Iprod {
 	name: string;
 	email: string;
 	password: string;
+	confirmPassword: string;
 	cart: any[];
 	isAdmin: boolean;
 }
@@ -22,7 +23,9 @@ const UserSchema = new mongoose.Schema(
 		password: {
 			type: String,
 		},
-
+		confirmPassword: {
+			type: String
+		},
 		isAdmin: {
 			type: Boolean,
 		},

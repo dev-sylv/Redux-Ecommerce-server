@@ -9,11 +9,12 @@ app.use(express.json());
 app.use(cors());
 
 mongoose.connect(url).then(() => {
-	console.log("database connection established");
+	console.log("Database Connection Established");
 });
 
 app.use("/api", AllRoute);
 
 app.listen(port, () => {
+	console.log("")
 	console.log("listening on port");
 });

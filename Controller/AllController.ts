@@ -3,6 +3,7 @@ import ProductsModel from "../Models/ProductsModels";
 import express, { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import ProductsModels from "../Models/ProductsModels";
 const router = express.Router();
 
 //get all users
@@ -147,4 +148,20 @@ router.patch(
 	},
 );
 
+// Get All Products:
+router.get("/all-products", async(req: Request, res: Response) =>{
+	try {
+		const products = await ProductsModels.find();
+		res.status(200).json({
+			message: "Successfully got all products",
+			data: products
+		});
+	} catch (error) {
+		res.status(404).json({
+			message: "an error occured",
+		});
+	}
+})
+
+// Get single product:
 export default router;

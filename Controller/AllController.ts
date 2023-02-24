@@ -164,4 +164,18 @@ router.get("/all-products", async(req: Request, res: Response) =>{
 })
 
 // Get single product:
+router.get("/all-products/:productID", async(req: Request, res: Response) =>{
+	try {
+		const products = await ProductsModels.findById(req.params.productID);
+		res.status(200).json({
+			message: "Successfully got single product",
+			data: products
+		});
+	} catch (error) {
+		res.status(404).json({
+			message: "an error occured",
+		});
+	}
+})
+
 export default router;
